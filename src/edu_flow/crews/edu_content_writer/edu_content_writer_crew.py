@@ -54,7 +54,7 @@ class EduContentWriterCrew():
 	def editing_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['editing_task'],
-			output_file='output/report.md'
+			output_file='output/outline.md'
 		)
 
 	@task
