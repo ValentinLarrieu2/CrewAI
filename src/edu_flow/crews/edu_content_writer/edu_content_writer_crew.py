@@ -2,6 +2,7 @@ from src.edu_flow.llm_config import llm
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 import os
+from src.edu_flow.config import EDU_FLOW_INPUT_VARIABLES
 
 # Uncomment the following line to use an example of a custom tool
 # from edu_content_writer.tools.custom_tool import MyCustomTool
@@ -11,6 +12,7 @@ import os
 
 @CrewBase
 class EduContentWriterCrew():
+	input_variables = EDU_FLOW_INPUT_VARIABLES
 	"""EduContentWriter crew"""
 
 	def __post_init__(self):
@@ -54,9 +56,14 @@ class EduContentWriterCrew():
 
 	@task
 	def editing_task(self) -> Task:
+		topic = self.input_variables.get("topic")
+		audience_level = self.input_variables.get("audience_level")
+		file_name = f"{topic}_{audience_level}.md".replace(" ", "_")
+		output_file_path = os.path.join('output', file_name)
+		
 		return Task(
 			config=self.tasks_config['editing_task'],
-			output_file='output/outline.md'
+			output_file=output_file_path
 		)
 
 	@task

@@ -15,7 +15,6 @@ api_key = os.getenv('LANGTRACE_API_KEY')
 langtrace.init(api_key=api_key)
 
 class EduFlow(Flow):
-    # Extracted input variables
     input_variables = EDU_FLOW_INPUT_VARIABLES
 
     @start()
@@ -23,10 +22,7 @@ class EduFlow(Flow):
         return EduResearchCrew().crew().kickoff(self.input_variables).pydantic
 
     @listen(generate_reseached_content)
-    def generate_educational_content(self, plan):
-        if plan is None:
-            raise ValueError("The plan object is None. Please provide a valid plan.")
-        
+    def generate_educational_content(self, plan):        
         final_content = []
         for section in plan.sections:
             writer_inputs = self.input_variables.copy()
@@ -39,7 +35,13 @@ class EduFlow(Flow):
     def save_to_markdown(self, content):
         output_dir = "output"
         os.makedirs(output_dir, exist_ok=True)  # Ensure the directory exists
-        output_path = os.path.join(output_dir, "educational_content.md")
+        
+        # Use topic and audience_level from input_variables to create the file name
+        topic = self.input_variables.get("topic")
+        audience_level = self.input_variables.get("audience_level")
+        file_name = f"{topic}_{audience_level}.md".replace(" ", "_")  # Replace spaces with underscores
+        
+        output_path = os.path.join(output_dir, file_name)
         
         with open(output_path, "w") as f:
             for section in content:
@@ -53,7 +55,6 @@ def kickoff():
 def plot():
     edu_flow = EduFlow()
     edu_flow.plot()
-
 
 if __name__ == "__main__":
     kickoff()
