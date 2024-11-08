@@ -40,5 +40,5 @@ quality_review_task:
   expected_output: >
     I want an improved and comprehensive version of the section content that incorporates the feedback. Ensure the content is formatted with clear headings and subheadings, and use bullet points where appropriate to enhance readability.
 
-    Do not include the feedback itself, just the improved content.
+    Include references to the sources used in the summary created in @tasks.yaml. Additionally, ensure that references are included as inline citations or hyperlinks within the content where appropriate. Do not include the feedback itself, just the improved content.
   agent: quality_reviewer

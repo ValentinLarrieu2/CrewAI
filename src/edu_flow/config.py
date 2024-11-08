@@ -15,9 +15,9 @@ LLM_CONFIGS = {
     }
 }
 
-LLM_CONFIG = LLM_CONFIGS["groq"] # Change this to switch between LLMs
+LLM_CONFIG = LLM_CONFIGS["openai"] # Change this to switch between LLMs
 
 EDU_FLOW_INPUT_VARIABLES = {
-    "audience_level": "beginner",
-    "topic": "Generative AI"
+    "audience_level": "intermediate",
+    "topic": "Automated reasoning"
 } 
