@@ -1,3 +1,4 @@
+from src.edu_flow.llm_config import llm
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
@@ -15,7 +16,7 @@ class EduContentWriterCrew():
 	def content_writer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['content_writer'],
-			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
+				llm=llm,
 			verbose=True
 		)
 

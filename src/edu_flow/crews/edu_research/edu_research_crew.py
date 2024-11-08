@@ -1,4 +1,5 @@
-from crewai import Agent, Crew, Process, Task
+import os
+from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 
 # Uncomment the following line to use an example of a custom tool
@@ -9,6 +10,9 @@ from crewai_tools import SerperDevTool
 
 from pydantic import BaseModel
 from typing import List
+
+# Define the LLM instance at the top level
+from src.edu_flow.llm_config import llm
 
 class Section(BaseModel):
     title: str
@@ -28,7 +32,7 @@ class EduResearchCrew():
 	def researcher(self) -> Agent:
 		return Agent(
 			config=self.agents_config['researcher'],
-			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
+			llm=llm,
 			verbose=True,
 			tools=[SerperDevTool()]
 		)
@@ -37,6 +41,7 @@ class EduResearchCrew():
 	def planner(self) -> Agent:
 		return Agent(
 			config=self.agents_config['planner'],
+			llm=llm,
 			verbose=True
 		)
 
