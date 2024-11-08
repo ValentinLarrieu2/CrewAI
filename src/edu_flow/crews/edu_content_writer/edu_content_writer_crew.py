@@ -26,7 +26,7 @@ class EduContentWriterCrew():
 	def content_writer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['content_writer'],
-				llm=llm,
+			llm=llm,
 			verbose=True
 		)
 
@@ -34,6 +34,7 @@ class EduContentWriterCrew():
 	def editor(self) -> Agent:
 		return Agent(
 			config=self.agents_config['editor'],
+			llm=llm,
 			verbose=True
 		)
 
@@ -41,6 +42,7 @@ class EduContentWriterCrew():
 	def quality_reviewer(self) -> Agent:
 		return Agent(
 			config=self.agents_config['quality_reviewer'],
+			llm=llm,
 			verbose=True
 		)
 
