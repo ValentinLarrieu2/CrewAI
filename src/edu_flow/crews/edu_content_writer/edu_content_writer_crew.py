@@ -1,6 +1,7 @@
 from src.edu_flow.llm_config import llm
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+import os
 
 # Uncomment the following line to use an example of a custom tool
 # from edu_content_writer.tools.custom_tool import MyCustomTool
@@ -11,6 +12,15 @@ from crewai.project import CrewBase, agent, crew, task
 @CrewBase
 class EduContentWriterCrew():
 	"""EduContentWriter crew"""
+
+	def __post_init__(self):
+		self.ensure_output_folder_exists()
+
+	def ensure_output_folder_exists(self):
+		"""Ensure the output folder exists."""
+		output_folder = 'output'
+		if not os.path.exists(output_folder):
+			os.makedirs(output_folder)
 
 	@agent
 	def content_writer(self) -> Agent:
@@ -44,7 +54,7 @@ class EduContentWriterCrew():
 	def editing_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['editing_task'],
-			output_file='report.md'
+			output_file='output/report.md'
 		)
 
 	@task
