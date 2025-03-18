@@ -2,3 +2,5 @@
 __pycache__/
 lib/
 output/
+venv/
+.DS_Store

@@ -1,0 +1,50 @@
+research_task:
+  description: >
+    Research the topic "{topic}" comprehensively to gather the most recent and accurate information available.
+    Your research should focus on finding the latest developments, statistics, expert opinions, and case studies
+    on this topic, with particular attention to information published within the last year when relevant.
+    
+    Use the SerperDevTool to find current information beyond what might be included in the AI's 
+    training data. Use search queries that include date qualifiers like "2023", "2024", "recent", "latest", etc.
+    to ensure you find the most recent information.
+    
+    For each important claim or data point, verify it through multiple reliable sources when possible.
+    Keep track of all sources with complete URLs so they can be referenced later.
+    
+    Consider the audience level "{audience_level}" while researching to determine the appropriate depth and
+    breadth of information needed. Ensure your research covers all major aspects and perspectives on the topic.
+    
+    Explicitly look for recent updates, changes, or new developments related to this topic to ensure
+    the report contains up-to-date information.
+  expected_output: >
+    A thorough research report on "{topic}" with up-to-date information from multiple reliable sources,
+    including recent developments, statistics, and expert opinions. All information should be properly
+    sourced with complete URLs and citations to ensure accuracy and credibility.
+  agent: researcher
+  async: false
+
+planning_task:
+  description: >
+    Based on the research conducted, create a comprehensive plan for a report on "{topic}" tailored to the 
+    "{audience_level}" audience level. Your plan should organize the information in a logical and engaging structure
+    that will guide the content creation process.
+    
+    For each section of the report:
+    1. Provide a clear title that communicates the section's focus
+    2. Define the high-level goal - what readers should learn from this section
+    3. Explain why this information is important to the target audience
+    4. Include specific sources (with URLs) that will support this section
+    5. Create a detailed content outline with key points to cover
+    
+    Ensure the plan leverages the most up-to-date information from the research phase. Be strategic about what 
+    to include and exclude based on audience needs and the most current developments in the field.
+    
+    Your plan should cover all critical aspects of the topic while maintaining appropriate depth and breadth
+    for the specified audience level. The final output should be a complete blueprint that will enable the 
+    writing team to create an accurate, informative, and engaging report.
+  expected_output: >
+    A detailed, well-structured plan for a report on "{topic}" targeted at a "{audience_level}" audience.
+    The plan should include sections with clear titles, goals, explanations of importance, sources, and 
+    content outlines. It should provide a comprehensive blueprint for the writing team.
+  agent: planner
+  async: true 
