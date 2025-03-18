@@ -4,24 +4,31 @@ Welcome to the Reporting Crew project, powered by [crewAI](https://crewai.com). 
 
 ## Installation
 
-Ensure you have Python >=3.10 <=3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Ensure you have Python >=3.10 <=3.13 installed on your system. This project uses [Poetry](https://python-poetry.org/docs/) for dependency management and package handling, offering a seamless setup and execution experience.
 
-First, if you haven't already, install uv:
+First, if you haven't already, install poetry:
 
 ```bash
-pip install uv
+pip install poetry
 ```
 
 Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
 ```bash
-crewai install
+poetry install
+poetry lock
 ```
+
 
 ### Customizing
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
+**Add your `SERPER_API_KEY` into the `.env` file**
+
+
+
+(optionnal)
+**Add your `LANGTRACE_API_KEY` into the `.env` file**
+(or remove the import related to lantrace in main.py)
 
 - Modify `src/reporting_flow/config/agents.yaml` to define your agents
 - Modify `src/reporting_flow/config/tasks.yaml` to define your tasks
@@ -33,24 +40,18 @@ crewai install
 To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
 
 ```bash
-crewai run
+poetry run kickoff
 ```
 
 This command initializes the reporting-flow Crew, assembling the agents and assigning them tasks as defined in your configuration.
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the output/report folder.
 
 ## Understanding Your Crew
 
 The reporting-flow Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
 
-## Support
+## Additionnal links
 
-For support, questions, or feedback regarding the Reporting Crew or crewAI.
-
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
+- CrewAi [documentation](https://docs.crewai.com)
+- Original repository used as inspiration [documentation](https://github.com/mberman84/edu-crew/blob/main/src/edu_flow/crews/edu_content_writer/edu_content_writer_crew.py)
