@@ -116,10 +116,12 @@ class ReportingResearchCrew():
 
     @crew
     def crew(self) -> Crew:
-        """Creates the enhanced ReportingResearch crew with sequential process"""
+        """Creates the enhanced ReportingResearch crew with hierarchical process"""
         return Crew(
             agents=[self.researcher(), self.planner()],
             tasks=self.tasks,
-            process=Process.sequential,  # Change to sequential for simplicity and reliability
+            manager_agent=self.research_manager(),  # Set the research manager as the manager agent
+            process=Process.hierarchical,  # Change to hierarchical process
             verbose=True,
+            planning=True,  # Enable planning for better coordination
         ) 

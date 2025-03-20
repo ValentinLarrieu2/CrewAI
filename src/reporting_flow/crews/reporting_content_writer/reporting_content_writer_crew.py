@@ -84,10 +84,12 @@ class ReportingContentWriterCrew():
 
 	@crew
 	def crew(self) -> Crew:
-		"""Creates the ReportingContentWriter crew with sequential process"""
+		"""Creates the ReportingContentWriter crew with hierarchical process"""
 		return Crew(
 			agents=[self.content_writer(), self.editor(), self.quality_reviewer()],
 			tasks=self.tasks,
-			process=Process.sequential,
+			manager_agent=self.content_manager(),  # Set the content manager as the manager agent
+			process=Process.hierarchical,
 			verbose=True,
+			planning=True,  # Enable planning for better coordination
 		) 

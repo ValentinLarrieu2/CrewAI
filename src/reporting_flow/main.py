@@ -6,7 +6,6 @@ import re
 import sys
 import logging
 from datetime import datetime
-from langtrace_python_sdk import langtrace
 from pydantic import BaseModel
 
 from crewai.flow.flow import Flow, listen, start
@@ -46,9 +45,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger("report_flow")
 
-api_key = os.getenv('LANGTRACE_API_KEY')
-
-langtrace.init(api_key=api_key)
+#####  To remove if we don't want to use langtrace
+from langtrace_python_sdk import langtrace
+langtrace_api_key = os.getenv('LANGTRACE_API_KEY')
+langtrace.init(api_key=langtrace_api_key)
+##### 
 
 # Simplified callback function with correct signature
 def task_callback(task):
@@ -70,7 +71,7 @@ class ReportingFlow(Flow):
         """Initial research phase to gather up-to-date information on the topic"""
         logger.info(f"🔍 Starting research on topic: {self.input_variables.get('topic')}")
         
-        # Create the research crew (no need for manager_llm in sequential mode)
+        # Create the research crew with hierarchical process managed by the research manager
         research_crew = ReportingResearchCrew().crew()
         
         # The CrewAI framework handles these callbacks
@@ -172,7 +173,7 @@ class ReportingFlow(Flow):
                 with open(os.path.join(debug_dir, f"section_{i+1}_input.json"), "w") as f:
                     json.dump(writer_inputs, f, indent=2, default=str)
                 
-                # Let the framework handle the execution
+                # Create the content writer crew with hierarchical process managed by content manager
                 content_crew = ReportingContentWriterCrew().crew()
                 section_result = await content_crew.kickoff_async(writer_inputs)
                 
@@ -317,7 +318,7 @@ async def kickoff_async():
 
 def kickoff():
     """Execute the reporting flow synchronously by running the async version in an event loop"""
-    logger.info("🚀 Starting the report generation flow")
+    logger.info("🚀 Starting the report generation flow with hierarchical architecture")
     reporting_flow = ReportingFlow()
     try:
         loop = asyncio.get_event_loop()
